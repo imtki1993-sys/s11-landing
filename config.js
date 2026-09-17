@@ -14,7 +14,7 @@ window.S11_CONFIG = {
   ],
   deliveryFee: 0,                 // 0 = التوصيل مجاني
   whatsapp: "+212613504459",       // ⚠️ دير الرقم ديالك هنا (بلا + وبلا 0)
-  pixelId: "1446452642300495",                    // Facebook Pixel ID (أرقام فقط)
+  pixelId: "1018544853873036",                    // Facebook Pixel ID (أرقام فقط)
   sheetUrl: "https://script.google.com/macros/s/AKfycbwjx1DpwWHRSOzmaJeJd_o_68pbTWhH7Q3mpldCgmWzeLncK-sRpZy5igl8i3xYFkug/exec",                   // رابط Google Apps Script (Web app) باش توصلك الطلبات
   openWhatsAppAfterOrder: true    // true = بعد الطلب كيتحل WhatsApp عند الزبون والرسالة واجدة
 };
