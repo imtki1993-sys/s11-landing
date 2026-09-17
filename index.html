@@ -237,6 +237,21 @@ Error generating stack: `+o.message+`
     slot.appendChild(document.getElementById("s11-tpl").content.cloneNode(true));
     const CONFIG = window.S11_CONFIG;
 
+// ---- Facebook Pixel: helper + أحداث الصفحة ----
+function track(name, params, custom){
+  if (!window.fbq) return;
+  try { custom ? fbq("trackCustom", name, params || {}) : fbq("track", name, params || {}); } catch (e) {}
+}
+(function pageEvents(){
+  let t30 = false, s50 = false, s90 = false;
+  setTimeout(() => { if (!t30) { t30 = true; track("TimeOnPage30", {}, true); } }, 30000);
+  window.addEventListener("scroll", () => {
+    const d = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+    if (!s50 && d >= 0.5) { s50 = true; track("Scroll50", {}, true); }
+    if (!s90 && d >= 0.9) { s90 = true; track("Scroll90", {}, true); }
+  }, { passive: true });
+})();
+
 
 const CITIES = ["الدار البيضاء","الرباط","سلا","تمارة","القنيطرة","المحمدية","بوزنيقة","برشيد","سطات","الجديدة","آسفي","الصويرة","مراكش","بني ملال","خريبكة","الفقيه بن صالح","قلعة السراغنة","فاس","مكناس","إفران","صفرو","تازة","طنجة","تطوان","المضيق","الفنيدق","العرائش","القصر الكبير","شفشاون","الحسيمة","الناظور","بركان","وجدة","تاوريرت","جرادة","فكيك","الراشيدية","أرفود","الريصاني","ورزازات","زاكورة","تنغير","أكادير","إنزكان","أيت ملول","تارودانت","تيزنيت","كلميم","طانطان","العيون","بوجدور","الداخلة","سيدي قاسم","سيدي سليمان","سيدي بنور","الخميسات","وزان","خنيفرة","ميدلت","أزرو","الصخيرات","بن جرير","اليوسفية","ابن سليمان","سيدي إفني","أزيلال"];
 
@@ -267,7 +282,11 @@ function renderSummary(){
   $("cta-amount").textContent = total() + " DH";
 }
 form.addEventListener("change", e => {
-  if (e.target.name === "offer") { offer = CONFIG.offers[+e.target.value]; renderSummary(); }
+  if (e.target.name === "offer") {
+    offer = CONFIG.offers[+e.target.value];
+    renderSummary();
+    track("AddToCart", { content_name: CONFIG.product, value: offer.price, currency: "MAD", num_items: offer.qty });
+  }
 });
 
 // phone helpers
@@ -344,13 +363,16 @@ form.addEventListener("submit", async e => {
         await new Promise(r => setTimeout(r, 900)); // معاينة: ماكاينش رابط
       }
       storageSet("s11_last", JSON.stringify({ phone: data.phone, t: Date.now() }));
-      if (window.fbq) fbq("track", "Lead", { value: data.total, currency: "MAD", content_name: data.product, num_items: data.qty });
+      const ev = { content_name: data.product, content_type: "product", value: data.total, currency: "MAD", num_items: data.qty, city: data.city };
+      track("Lead", ev);
+      if (CONFIG.pixelPurchaseOnOrder) track("Purchase", ev);
       if (window.ttq) ttq.track("SubmitForm");
     }
     showSuccess(data);
   } catch (err) {
     $("form-error").textContent = "الطلب ماتسجلش، تأكد من الأنترنيت وعاود. ولا صيفط لينا فـ WhatsApp.";
     $("form-error").style.display = "block";
+    track("OrderFailed", { city: $("city").value.trim() }, true);
   } finally {
     busy = false;
     $("cta").disabled = false;
@@ -388,11 +410,14 @@ $("again").addEventListener("click", () => {
 
 renderSummary();
 let startedCheckout = false;
-form.addEventListener("focusin", () => {
-  if (startedCheckout || !window.fbq) return;
+form.addEventListener("focusin", (e) => {
+  if (startedCheckout || e.target.type === "radio") return;
   startedCheckout = true;
-  fbq("track", "InitiateCheckout", { value: total(), currency: "MAD" });
+  track("InitiateCheckout", { content_name: CONFIG.product, value: total(), currency: "MAD", num_items: offer.qty });
 });
+
+// كليك على WhatsApp
+$("wa").addEventListener("click", () => track("Contact", { content_name: CONFIG.product }));
 
   })();
   </script>
