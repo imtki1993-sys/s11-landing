@@ -339,7 +339,7 @@ form.addEventListener("submit", async e => {
   try {
     if (!duplicate) {
       if (CONFIG.sheetUrl) {
-        await fetch(CONFIG.sheetUrl, { method: "POST", mode: "no-cors", body: new URLSearchParams(data) });
+        await fetch(CONFIG.sheetUrl, { method: "POST", mode: "no-cors", keepalive: true, body: new URLSearchParams(data) });
       } else {
         await new Promise(r => setTimeout(r, 900)); // معاينة: ماكاينش رابط
       }
@@ -368,9 +368,14 @@ function showSuccess(d){
   $("wa").href = waLink(
     `السلام، درت طلب:\n${d.product} × ${d.qty}\nالمجموع: ${d.total} DH\nالاسم: ${d.name}\nالهاتف: ${d.phone}\nالمدينة: ${d.city}` + (d.address ? `\nالعنوان: ${d.address}` : "")
   );
-  $("wa-text").textContent = "بدلت شي حاجة؟ قولها لينا فـ WhatsApp";
   form.classList.add("done");
   form.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (CONFIG.openWhatsAppAfterOrder) {
+    $("wa-text").textContent = "كنحلو ليك WhatsApp… صيفط الرسالة باش تأكد الطلب";
+    setTimeout(() => { window.location.href = $("wa").href; }, 1500);
+  } else {
+    $("wa-text").textContent = "بدلت شي حاجة؟ قولها لينا فـ WhatsApp";
+  }
 }
 
 $("again").addEventListener("click", () => {
