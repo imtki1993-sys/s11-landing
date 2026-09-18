@@ -328,7 +328,26 @@ $("wa").href = waLink(`السلام، عندي سؤال على ${CONFIG.product}
 function storageGet(k){ try { return localStorage.getItem(k); } catch { return null; } }
 function storageSet(k, v){ try { localStorage.setItem(k, v); } catch {} }
 
-form.addEventListener("submit", async e => {
+// كيصيفط الطلب فالخلفية: الزبون ماكيتسناش
+function sendOrder(data, attempt){
+  if (!CONFIG.sheetUrl) return;
+  const body = new URLSearchParams(data).toString();
+  try {
+    if (navigator.sendBeacon) {
+      const ok = navigator.sendBeacon(CONFIG.sheetUrl, new Blob([body], { type: "application/x-www-form-urlencoded" }));
+      if (ok) return;
+    }
+  } catch (e) {}
+  fetch(CONFIG.sheetUrl, {
+    method: "POST", mode: "no-cors", keepalive: true,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body
+  }).catch(() => {
+    if ((attempt || 0) < 2) setTimeout(() => sendOrder(data, (attempt || 0) + 1), 1500);
+    else track("OrderFailed", { city: data.city }, true);
+  });
+}
+
+form.addEventListener("submit", e => {
   e.preventDefault();
   if (busy) return;
   $("form-error").style.display = "none";
@@ -346,39 +365,21 @@ form.addEventListener("submit", async e => {
     total: total()
   };
 
-  // same phone ordered in the last 10 minutes → don't create a duplicate
+  // نفس الرقم طلب فآخر 10 دقايق → مانعاودوش نسجلوه
   const last = JSON.parse(storageGet("s11_last") || "null");
   const duplicate = last && last.phone === data.phone && Date.now() - last.t < 10 * 60 * 1000;
 
   busy = true;
-  $("cta").disabled = true;
-  $("cta").classList.add("loading");
-  $("cta-text").textContent = "كنسجلو الطلب…";
-
-  try {
-    if (!duplicate) {
-      if (CONFIG.sheetUrl) {
-        await fetch(CONFIG.sheetUrl, { method: "POST", mode: "no-cors", keepalive: true, body: new URLSearchParams(data) });
-      } else {
-        await new Promise(r => setTimeout(r, 900)); // معاينة: ماكاينش رابط
-      }
-      storageSet("s11_last", JSON.stringify({ phone: data.phone, t: Date.now() }));
-      const ev = { content_name: data.product, content_type: "product", value: data.total, currency: "MAD", num_items: data.qty, city: data.city };
-      track("Lead", ev);
-      if (CONFIG.pixelPurchaseOnOrder) track("Purchase", ev);
-      if (window.ttq) ttq.track("SubmitForm");
-    }
-    showSuccess(data);
-  } catch (err) {
-    $("form-error").textContent = "الطلب ماتسجلش، تأكد من الأنترنيت وعاود. ولا صيفط لينا فـ WhatsApp.";
-    $("form-error").style.display = "block";
-    track("OrderFailed", { city: $("city").value.trim() }, true);
-  } finally {
-    busy = false;
-    $("cta").disabled = false;
-    $("cta").classList.remove("loading");
-    $("cta-text").textContent = "أكد الطلب";
+  if (!duplicate) {
+    sendOrder(data, 0);
+    storageSet("s11_last", JSON.stringify({ phone: data.phone, t: Date.now() }));
+    const ev = { content_name: data.product, content_type: "product", value: data.total, currency: "MAD", num_items: data.qty, city: data.city };
+    track("Lead", ev);
+    if (CONFIG.pixelPurchaseOnOrder) track("Purchase", ev);
+    if (window.ttq) ttq.track("SubmitForm");
   }
+  showSuccess(data);
+  busy = false;
 });
 
 function showSuccess(d){
@@ -391,10 +392,10 @@ function showSuccess(d){
     `السلام، درت طلب:\n${d.product} × ${d.qty}\nالمجموع: ${d.total} DH\nالاسم: ${d.name}\nالهاتف: ${d.phone}\nالمدينة: ${d.city}` + (d.address ? `\nالعنوان: ${d.address}` : "")
   );
   form.classList.add("done");
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  form.scrollIntoView({ behavior: "auto", block: "start" });
   if (CONFIG.openWhatsAppAfterOrder) {
     $("wa-text").textContent = "كنحلو ليك WhatsApp… صيفط الرسالة باش تأكد الطلب";
-    setTimeout(() => { window.location.href = $("wa").href; }, 1500);
+    setTimeout(() => { window.location.href = $("wa").href; }, 700);
   } else {
     $("wa-text").textContent = "بدلت شي حاجة؟ قولها لينا فـ WhatsApp";
   }
