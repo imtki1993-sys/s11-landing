@@ -13,7 +13,7 @@ window.S11_CONFIG = {
     { qty: 3, price: 449, title: "3 حبات", note: "وفر 118 DH" }
   ],
   deliveryFee: 0,                 // 0 = التوصيل مجاني
-  whatsapp: "212673833237",       // ⚠️ دير الرقم ديالك هنا (بلا + وبلا 0)
+  whatsapp: "212640638832",       // ⚠️ دير الرقم ديالك هنا (بلا + وبلا 0)
   pixelId: "1018544853873036",                    // Facebook Pixel ID (أرقام فقط)
   pixelPurchaseOnOrder: true,     // كيصيفط حدث Purchase مع كل طلب (حيت COD)
   sheetUrl: "https://script.google.com/macros/s/AKfycbwjx1DpwWHRSOzmaJeJd_o_68pbTWhH7Q3mpldCgmWzeLncK-sRpZy5igl8i3xYFkug/exec",                   // رابط Google Apps Script (Web app) باش توصلك الطلبات
