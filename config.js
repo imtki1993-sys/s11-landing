@@ -18,6 +18,14 @@ window.S11_CONFIG = {
   pixelPurchaseOnOrder: true,     // كيصيفط حدث Purchase مع كل طلب (حيت COD)
   sheetUrl: "https://script.google.com/macros/s/AKfycbwjx1DpwWHRSOzmaJeJd_o_68pbTWhH7Q3mpldCgmWzeLncK-sRpZy5igl8i3xYFkug/exec",                   // رابط Google Apps Script (Web app) باش توصلك الطلبات
     // ⬅️ 4. TON ID GOOGLE ANALYTICS
-  gaId: "G-LQJRXFY95K",
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LQJRXFY95K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LQJRXFY95K');
+</script>
   openWhatsAppAfterOrder: true    // true = بعد الطلب كيتحل WhatsApp عند الزبون والرسالة واجدة
 };
