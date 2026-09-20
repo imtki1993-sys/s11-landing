@@ -17,5 +17,7 @@ window.S11_CONFIG = {
   pixelId: "1018544853873036",                    // Facebook Pixel ID (أرقام فقط)
   pixelPurchaseOnOrder: true,     // كيصيفط حدث Purchase مع كل طلب (حيت COD)
   sheetUrl: "https://script.google.com/macros/s/AKfycbwjx1DpwWHRSOzmaJeJd_o_68pbTWhH7Q3mpldCgmWzeLncK-sRpZy5igl8i3xYFkug/exec",                   // رابط Google Apps Script (Web app) باش توصلك الطلبات
+    // ⬅️ 4. TON ID GOOGLE ANALYTICS
+  gaId: "G-LQJRXFY95K",
   openWhatsAppAfterOrder: true    // true = بعد الطلب كيتحل WhatsApp عند الزبون والرسالة واجدة
 };
