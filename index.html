@@ -17,7 +17,7 @@
 <meta property="og:title" content="S11 – Support + شاحن Wireless للطوموبيل">
 <meta property="og:description" content="كيتشد بوحدو، كيشارجي بلا كابل. الدفع عند الاستلام فالمغرب.">
 <meta property="og:type" content="product">
-<meta name="theme-color" content="#1B1F24">
+<meta name="theme-color" content="#F24E0C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -108,7 +108,13 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,8.5vw,50px);l
 .price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .price{font-size:18px;font-weight:700}
 .price b{font-family:var(--display);font-weight:400;font-size:40px;color:var(--ink)}
-.price-note{font-size:14px;color:var(--orange-deep);font-weight:700;background:var(--orange-soft);padding:2px 10px;border-radius:20px}
+.price-note{display:none}
+.hero-price{display:flex;flex-direction:column;align-items:flex-start;background:var(--paper);border:2px solid var(--orange);border-radius:18px;padding:12px 18px 14px;margin:6px 0 16px}
+.hp-label{font-size:14px;font-weight:800;color:var(--muted)}
+.hp-amount{display:flex;align-items:baseline;gap:6px;direction:ltr;line-height:1}
+.hp-amount b{font-family:var(--display);font-weight:400;font-size:clamp(64px,19vw,96px);color:var(--orange);letter-spacing:-.01em}
+.hp-amount small{font-size:26px;font-weight:800;color:var(--ink)}
+.hp-sub{font-size:14px;font-weight:700;color:var(--green);margin-top:4px}
 .trust{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .trust li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;font-size:13px;font-weight:700;line-height:1.3}
 .trust b{display:block;font-size:20px;margin-bottom:3px}
@@ -167,6 +173,35 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,8.5vw,50px);l
   .btn-lg{width:auto;padding:0 32px}
   .sticky{display:none}
 }
+
+/* ===== THEME HOT (fond chaud) ===== */
+body{background:
+  radial-gradient(700px 420px at 90% -8%, rgba(255,190,60,.40), transparent 60%),
+  radial-gradient(600px 500px at 0% 35%, rgba(0,0,0,.35), transparent 65%),
+  linear-gradient(180deg,#F24E0C 0%,#D8321A 22%,#A8181C 45%,#4A0A10 72%,#140507 100%);
+  background-color:#140507;color:var(--ink)}
+.strip{background:#0E0406}
+.top{background:#120506;border-bottom-color:rgba(255,255,255,.08)}
+.logo{color:#fff}
+.eyebrow{color:#FFE08A}
+h1{color:#fff;text-shadow:0 2px 18px rgba(80,0,0,.25)}
+#s11-order h1{color:var(--ink);text-shadow:none}
+.faq .sec-sub{color:rgba(255,255,255,.85)}
+.dots button{background:rgba(255,255,255,.45)}
+.dots button[aria-selected="true"]{background:#FFD400}
+.gallery .slides{box-shadow:0 18px 40px rgba(90,0,0,.35)}
+.hero-price{border-color:#FFD400;box-shadow:0 10px 30px rgba(90,0,0,.25)}
+.btn-lg{background:#FFD400;color:#1B1F24;box-shadow:0 10px 26px rgba(90,0,0,.3)}
+.btn-lg:hover{background:#FFE35C}
+.trust li{border-color:transparent}
+.sec-title{color:#fff}
+.sec-sub{color:rgba(255,255,255,.88)}
+#s11-order{box-shadow:0 20px 50px rgba(80,0,0,.35);border-color:transparent}
+.benefit{border-color:transparent;box-shadow:0 8px 24px rgba(80,0,0,.18)}
+.faq details{border-color:transparent}
+.wa-line{border-color:#fff}
+.foot{color:rgba(255,255,255,.8);border-top-color:rgba(255,255,255,.2)}
+@media (min-width:900px){ .btn-lg{background:#FFD400} }
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 
 </style>
@@ -311,11 +346,10 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,8.5vw,50px);l
     <div class="hero-text">
       <p class="eyebrow">Support + شاحن Wireless للطوموبيل</p>
       <h1>خلي تيليفونك ثابت<br>وشارجيه بلا كابل</h1>
-      <p class="lead">قرب التيليفون، كيتشد بوحدو، وكيبدا يشارجي. بلا كابلات، بلا ما تشدو بيدك وانت سايق.</p>
-
-      <div class="price-row">
-        <span class="price">من <b id="from-price">189</b> DH</span>
-        <span class="price-note">جوج حبات ولا 3 بثمن أحسن</span>
+      <div class="hero-price" aria-label="الثمن">
+        <span class="hp-label">الثمن</span>
+        <span class="hp-amount"><b id="from-price">189</b><small>DH</small></span>
+        <span class="hp-sub">كتخلص ملي يوصلك · التوصيل مجاني</span>
       </div>
 
       <a class="btn btn-lg" href="#commande" data-cta>نطلب دابا وخلص ملي يوصلك</a>
@@ -447,7 +481,7 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,8.5vw,50px);l
   <a class="sticky-wa" id="sticky-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
   </a>
-  <div class="sticky-info"><b>S11</b><span>من <b id="sticky-price">189</b> DH · الدفع عند الاستلام</span></div>
+  <div class="sticky-info"><b>S11</b><span><b id="sticky-price">189</b> DH · الدفع عند الاستلام</span></div>
   <a class="btn" href="#commande" data-cta>نطلب دابا</a>
 </div>
 
@@ -467,12 +501,7 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,8.5vw,50px);l
 
   <div class="fill">
     <div class="section">
-      <div class="step"><b>1</b> اختار العرض</div>
-      <div class="offers" id="s11-offers"></div>
-    </div>
-
-    <div class="section">
-      <div class="step"><b>2</b> فين نوصلو ليك؟</div>
+      <div class="step">فين نوصلو ليك؟</div>
 
       <div class="field" data-f="name">
         <label for="s11-name">الاسم الكامل</label>
@@ -500,21 +529,6 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,8.5vw,50px);l
         <div class="control"><input id="s11-address" name="address" autocomplete="street-address" placeholder="الحي، الزنقة، رقم الدار"></div>
       </div>
     </div>
-  </div>
-
-  <div class="label" id="s11-label" aria-label="ملخص الطلب">
-    <div class="stamp" aria-hidden="true">تسجل<br>✓</div>
-    <div class="info-rows">
-      <div class="row"><span>الاسم</span><span id="s11-l-name"></span></div>
-      <div class="row"><span>الهاتف</span><span id="s11-l-phone"></span></div>
-      <div class="row"><span>المدينة</span><span id="s11-l-city"></span></div>
-      <hr>
-    </div>
-    <div class="row"><span><bdi dir="ltr">S11 Support</bdi></span><span id="s11-l-qty">× 1</span></div>
-    <div class="row"><span>التوصيل</span><span id="s11-l-ship"></span></div>
-    <hr>
-    <div class="total"><span>تخلص عند الاستلام</span><strong id="s11-l-total">189 DH</strong></div>
-    <div class="bars" aria-hidden="true"></div>
   </div>
 
   <div class="actions">
@@ -579,7 +593,7 @@ let offer = CONFIG.offers[0];
 let busy = false;
 
 // build offers
-$("offers").innerHTML = CONFIG.offers.map((o, i) => `
+if ($("offers")) $("offers").innerHTML = CONFIG.offers.map((o, i) => `
   <label class="offer">
     <input type="radio" name="offer" value="${i}" ${i === 0 ? "checked" : ""}>
     <div class="tile">
@@ -592,12 +606,12 @@ $("offers").innerHTML = CONFIG.offers.map((o, i) => `
 $("cities").innerHTML = CITIES.map(c => `<option value="${c}">`).join("");
 
 function total(){ return offer.price + CONFIG.deliveryFee; }
+function setText(id, v){ const el = $(id); if (el) el.textContent = v; }
 function renderSummary(){
-  $("l-qty").textContent = "× " + offer.qty;
-  $("l-ship").textContent = CONFIG.deliveryFee ? CONFIG.deliveryFee + " DH" : "مجاني";
-  $("l-ship").className = CONFIG.deliveryFee ? "" : "free";
-  $("l-total").textContent = total() + " DH";
-  $("cta-amount").textContent = total() + " DH";
+  setText("l-qty", "× " + offer.qty);
+  setText("l-ship", CONFIG.deliveryFee ? CONFIG.deliveryFee + " DH" : "مجاني");
+  setText("l-total", total() + " DH");
+  setText("cta-amount", total() + " DH");
 }
 form.addEventListener("change", e => {
   if (e.target.name === "offer") {
@@ -724,9 +738,9 @@ form.addEventListener("submit", e => {
 function showSuccess(d){
   $("s-name").textContent = d.name.split(" ")[0];
   $("s-phone").textContent = fmtPhone(d.phone);
-  $("l-name").textContent = d.name;
-  $("l-phone").textContent = fmtPhone(d.phone);
-  $("l-city").textContent = d.city;
+  setText("l-name", d.name);
+  setText("l-phone", fmtPhone(d.phone));
+  setText("l-city", d.city);
   $("wa").href = waLink(
     `السلام، درت طلب:\n${d.product} × ${d.qty}\nالمجموع: ${d.total} DH\nالاسم: ${d.name}\nالهاتف: ${d.phone}\nالمدينة: ${d.city}` + (d.address ? `\nالعنوان: ${d.address}` : "")
   );
@@ -764,11 +778,12 @@ $("wa").addEventListener("click", () => track("Contact", { content_name: CONFIG.
 <script>
 (function(){
   var C = window.S11_CONFIG || {};
-  var fromPrice = Math.min.apply(null, (C.offers || [{price:189}]).map(function(o){ return o.price; }));
+  var fromPrice = ((C.offers || [])[0] || {price:189}).price;
   ["from-price","sticky-price"].forEach(function(id){ var el=document.getElementById(id); if (el) el.textContent = fromPrice; });
   if (C.deliveryFee) {
     document.querySelectorAll(".free-ship").forEach(function(el){ el.remove(); });
     document.querySelectorAll(".ship-price").forEach(function(el){ el.textContent = "ثمن التوصيل: " + C.deliveryFee + " DH."; });
+    document.querySelectorAll(".hp-sub").forEach(function(el){ el.textContent = "كتخلص ملي يوصلك · التوصيل " + C.deliveryFee + " DH"; });
   }
   var wa = "https://wa.me/" + (C.whatsapp || "") + "?text=" + encodeURIComponent("السلام، عندي سؤال على " + (C.product || "S11"));
   ["faq-wa","sticky-wa"].forEach(function(id){
