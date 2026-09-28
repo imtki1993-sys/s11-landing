@@ -101,7 +101,7 @@ function doPost(e) {
 function testOrder() {
   const res = doPost({ parameter: {
     name: "Test Claude", phone: "0612345678", city: "Casablanca",
-    address: "Test – à supprimer", product: "S11 Support + Wireless 15W", qty: "1", total: "189"
+    address: "Test – à supprimer", product: "S11 Support + Wireless 15W", qty: "1", total: "169"
   }});
   console.log(res.getContent());
 }
