@@ -8,8 +8,8 @@
 window.S11_CONFIG = {
   product: "S11 Support + Wireless 15W",
   offers: [
-    { qty: 1, price: 189, title: "حبة وحدة" },
-    { qty: 2, price: 349, title: "جوج حبات", note: "وفر 29 DH" },
+    { qty: 1, price: 169, title: "حبة وحدة" },
+    { qty: 2, price: 299, title: "جوج حبات", note: "وفر 29 DH" },
     { qty: 3, price: 449, title: "3 حبات", note: "وفر 118 DH" }
   ],
   deliveryFee: 0,                 // 0 = التوصيل مجاني
