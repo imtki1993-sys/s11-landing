@@ -826,6 +826,23 @@ $("wa").addEventListener("click", () => track("Contact", { content_name: CONFIG.
   if ("IntersectionObserver" in window && sticky && sec) {
     new IntersectionObserver(function(es){ sticky.classList.toggle("hide", es[0].isIntersecting); }, { threshold: 0.15 }).observe(sec);
   }
+  fetch("https://landpro.online/api/external-orders", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    landing_id: "b325f7e6-f627-4f4a-8f93-17a766f85efd",
+    name: form.name,
+    phone: form.phone,
+    city: form.city,
+    address: form.address,
+    quantity: 1
+  })
+})
+.then(async (response) => {
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "Commande impossible");
+  return data;
+});
 
   // clic sur un bouton "commander"
   document.querySelectorAll("[data-cta]").forEach(function(a){
